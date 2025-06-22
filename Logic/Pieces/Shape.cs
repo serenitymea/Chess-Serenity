@@ -15,23 +15,34 @@ namespace Logic
         public abstract IEnumerable<Move> GetMoves(Pos from, Board board);
         protected IEnumerable<Pos> MovePosInDir(Pos from, Board board, Dirr dir) // ходит в одной поз пок ане упр или преп
         {
-            for(Pos pos = from + dir; Board.IsInside(pos); pos += dir)
+            for (Pos pos = from + dir; Board.IsInside(pos); pos += dir)
             {
                 if (board.IsEmpty(pos))
                 {
-                    yield return pos; continue;
+                    yield return pos;
+                    continue;
                 }
+
                 Shape shape = board[pos];
                 if (shape.Color != Color)
                 {
                     yield return pos;
                 }
-                yield break;
+
+                break;
+            }
+
+        }
+        protected IEnumerable<Pos> MovePosInDir(Pos from, Board board, params Dirr[] dirs)
+        {
+            foreach (var dir in dirs)
+            {
+                foreach (var pos in MovePosInDir(from, board, dir))
+                {
+                    yield return pos;
+                }
             }
         }
-        protected IEnumerable<Pos> MovePosInDir(Pos from, Board board, params Dirr[] dirs) // сразу все напр
-        {
-            return dirs.SelectMany(dir => MovePosInDir(from, board, dir));
-        }
+
     }
 }

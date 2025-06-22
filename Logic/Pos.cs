@@ -13,11 +13,7 @@
         // вот эта шляпа типа сортирует клеточки на белые и черные если белая то она делиться на два без остатка
         public NewPlayer cellcol()
         {
-            if ((Row + Col) % 2 == 0)
-            {
-                return NewPlayer.White;
-            }
-                return NewPlayer.Black;
+            return (Row + Col) % 2 == 0 ? NewPlayer.White : NewPlayer.Black;
         }   
         // вот эта тема короче сравнивает клетки одинаковые они чи не там типа (1 5) = (1 5) значит выдает тру а если нет то фолс
         public override bool Equals(object obj)

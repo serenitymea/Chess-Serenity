@@ -38,15 +38,18 @@ namespace Logic
             {
                 Pos to = from + dir;
                 if (!Board.IsInside(to))
+                    continue;
+
+                if (board.IsEmpty(to))
                 {
+                    yield return to;
                     continue;
                 }
 
-                if (board.IsEmpty(to) || board[to].Color != Color)
-                {
+                if (board[to].Color != Color)
                     yield return to;
-                }
             }
+
         }
         public override IEnumerable<Move> GetMoves(Pos from, Board board)
         {
